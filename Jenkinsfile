@@ -1,18 +1,16 @@
 pipeline {
-    agent any 
-    stages { 
+    agent any
+    stages {
         stage("Build") {
-            when { branch "master" }
-            steps { 
-               echo "I am a master branch"
+            when {
+                expression {
+                    // Run this stage for 'master' and 'main' branches
+                    return currentBuild.branch in ['master', 'main']
+                }
+            }
+            steps {
+                echo "I am a master or main branch"
             }
         }
-        stage("Build main") {
-            when { branch "main" }
-            steps { 
-               echo "I am a main branch"
-            }
-        }
-        
     }
 }
